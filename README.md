@@ -19,11 +19,12 @@ Adds a button in the top right that opens a small window. The window displays wh
 
 #### How It Works
 
+This feature works by utilizing content scripts to inject html on to the page. The information about item locations comes from [item_locations.json](https://github.com/MattiasKDev/dotv-helper/blob/main/item_locations.json). This data was created automatically in a different project using the games api.
+
 ### planned features
+
  - collections: a new tab to see what obtainable items you are missing
  - loot tables: display loot tables for raids in game. Has been done by matrix [tampermonkey script](https://greasyfork.org/en/scripts/450685-dragons-of-the-void-raid-loot-tiers)
-
-This feature works by utilizing content scripts to inject html on to the page. The information about item locations comes from [item_locations.json](https://github.com/MattiasKDev/dotv-helper/blob/main/item_locations.json). This data was created automatically in a different project using the games api.
 
 
 
