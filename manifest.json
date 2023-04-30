@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "DotV helper",
+    "version": "1.0",
+    "permissions": [
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://play.dragonsofthevoid.com/*"
+            ],
+            "js": [
+                "item-lookup.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "item_locations.json"
+            ],
+            "matches": [
+                "https://play.dragonsofthevoid.com/*"
+            ]
+        }
+    ]
+}
