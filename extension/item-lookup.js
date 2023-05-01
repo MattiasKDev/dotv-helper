@@ -46,8 +46,11 @@ function main(bell) {
     itemName.style = "display: inline; font-size: 24px; margin-left: 10px;";
     container.appendChild(itemName);
 
+    const itemLocationsContainer = document.createElement('div');
+    itemLocationsContainer.style = "height: 100%; overflow: auto;";
+    disp.appendChild(itemLocationsContainer);
     const itemLocations = document.createElement('dl');
-    disp.appendChild(itemLocations);
+    itemLocationsContainer.appendChild(itemLocations);
 
 
     icon.querySelector("img").addEventListener("click", function (event) {
