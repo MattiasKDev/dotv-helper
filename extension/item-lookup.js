@@ -11,8 +11,8 @@ fetch(chrome.runtime.getURL("item_locations.json"))
 var bellCheck = setInterval(function () {
     bell = document.querySelector("#app > div > div.app-container > div.dotv-header.header > div.details > div.details-content > div:nth-child(2) > div.notification-icon")
     if (bell) {
-        main(bell);
         clearInterval(bellCheck);
+        main(bell);
     }
 }, 500); // check for bell element every 500ms
 
@@ -50,8 +50,10 @@ function main(bell) {
     disp.appendChild(itemLocations);
 
 
-    icon.addEventListener("click", function () {
-        if (!this.contains(disp)) {
+    icon.querySelector("img").addEventListener("click", function (event) {
+        console.log(event.target)
+        console.log(icon.querySelector("img"))
+        if (!icon.contains(disp)) {
             icon.appendChild(disp);
         }
         else {
@@ -76,9 +78,9 @@ function main(bell) {
                 }
 
                 itemN = node.querySelector('.item-popover-head-details span').textContent;
-                itemImg = node.querySelector('.item-popover-image-container img').getAttribute('src');
+                img.src = node.querySelector('.item-popover-image-container img')?.getAttribute('src');
                 itemName.textContent = itemN
-                img.src = itemImg
+
 
                 itemLocations.innerHTML = '';
                 item = item_locations_json[itemN.toLowerCase()];
