@@ -12,14 +12,7 @@
             ]
         }
     ],
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "item_locations.json"
-            ],
-            "matches": [
-                "https://play.dragonsofthevoid.com/*"
-            ]
-        }
+    "host_permissions": [
+        "https://api.dragonsofthevoid.com/data/*"
     ]
 }
