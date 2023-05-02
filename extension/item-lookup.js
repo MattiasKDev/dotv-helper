@@ -54,8 +54,6 @@ function main(bell) {
 
 
     icon.querySelector("img").addEventListener("click", function (event) {
-        console.log(event.target)
-        console.log(icon.querySelector("img"))
         if (!icon.contains(disp)) {
             icon.appendChild(disp);
         }
