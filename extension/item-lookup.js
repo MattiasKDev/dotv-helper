@@ -1,6 +1,16 @@
 console.log('Content script loaded');
 
-let auth = "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjAxNDAwNDA0Q0I0QUIzMTJGNENFNDRGQzdFMTU0REU4IiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2ODI5ODk1MjUsImV4cCI6MTY4MzA3NTkyNSwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5kcmFnb25zb2Z0aGV2b2lkLmNvbSIsImF1ZCI6ImFwaTEiLCJjbGllbnRfaWQiOiJkb3R2Iiwic3ViIjoiMzJiODNjMjEtNjY0OS00ODc2LWE3NTQtNTRjZTQ0MjVjMTVkIiwiYXV0aF90aW1lIjoxNjgyOTg5NTI1LCJpZHAiOiJsb2NhbCIsInJvbGUiOiJkYXRhRXZlbnRSZWNvcmRzLnVzZXIiLCJ1c2VybmFtZSI6ImRyZWFtcy5zZW5kaW5nMGVAaWNsb3VkLmNvbSIsImp0aSI6IkY5MDE3Rjk4M0YzNzgyMzZFN0FFQTBCQUM4NkVBRTdDIiwic2lkIjoiNzk3OTJCRjE2RUQ1RjczQUFEM0Q3MEM2OTQyMERBOEIiLCJpYXQiOjE2ODI5ODk1MjUsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJlbWFpbCIsImFwaTEucmVhZCIsImFwaTEud3JpdGUiXSwiYW1yIjpbInB3ZCJdfQ.AFV09squ4xrEyccAkeEj2ihTtwgEU8UhV_uhWIySHcazVP18Cvolly_0y4xGV54S7AFv8NCLyQ916_TPO-tYTXYv88LeRI5A0gKKgJws35Qm9vR4OgX2tL86PV0HTPslhUSCyYKCStj8kAG3KUAwmN2GN8JgHY-Bu6r_sAyHIkoLH8x0QQAJ_Sg1WyUhM79nEPa1geHGaKQuFfF9btP7EkUNX7BigZ6ub6B253lOJ_jB_gQ3V0wYN1r703vd1oLIWYUwEaTO7CSrPiOgly3GLaPnDtHdEUOpX13QvdMxsRTMx5kkX3PnhbZjoLTdlwaj9qkxc233XDxmrE-XcH1a8A"
+let auth;
+// Set the value of the 'token' key in chrome.storage.local
+chrome.storage.local.set({ 'token': this.localStorage.token }, function () {
+    console.log('Token value set');
+});
+
+// Retrieve the value of the 'token' key from chrome.storage.local
+chrome.storage.local.get('token', function (result) {
+    auth = result.token;
+});
+
 async function GetItemLocations() {
     var itemLocations = {};
     let data = {
@@ -141,7 +151,6 @@ async function GetItemLocations() {
         const { name, ...rest } = item;
         itemsByName[name] = rest;
     }
-    console.log(itemsByName)
     return itemsByName;
 }
 
@@ -151,13 +160,11 @@ var bellCheck = setInterval(async function () {
     if (bell) {
         clearInterval(bellCheck);
         item_locations_json = await GetItemLocations()
-        console.log(item_locations_json)
         main(bell);
     }
 }, 500); // check for bell element every 500ms
 
 function main(bell) {
-    console.log()
     console.log('Main function called');
     icon = bell.cloneNode(true);
     bell.parentNode.appendChild(icon);
@@ -225,7 +232,6 @@ function main(bell) {
 
 
                 itemLocations.innerHTML = '';
-                console.log(item_locations_json)
                 item = item_locations_json[itemN.toLowerCase()];
                 if (item) {
                     if (!item.crafting && !item.market && (item.raids.length + item.quests.length) == 0) {

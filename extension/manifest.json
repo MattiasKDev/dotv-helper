@@ -14,5 +14,8 @@
     ],
     "host_permissions": [
         "https://api.dragonsofthevoid.com/data/*"
+    ],
+    "permissions": [
+        "storage"
     ]
 }
