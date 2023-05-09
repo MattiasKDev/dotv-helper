@@ -23,7 +23,7 @@ chrome.storage.sync.get(['raidInfoEnabled'], ({ raidInfoEnabled }) => {
                 mutations.forEach(mutation => {
                     mutation.addedNodes.forEach(node => {
                         if (node instanceof Element && node.querySelector('.raid-container .boss-name-container span')) {
-                            displayRaidInfo(node.querySelector('.raid-container .boss-name-container span').parentNode.firstChild.innerHTML);
+                            displayRaidInfo(node.querySelector('.raid-container .boss-name-container'));
                         }
                     });
                 });
@@ -33,11 +33,19 @@ chrome.storage.sync.get(['raidInfoEnabled'], ({ raidInfoEnabled }) => {
         }
     }, 500);
 
-    function displayRaidInfo(raidName) {
-        const raidInfo = Object.values(raidData).find(r => r.name === raidName);
-        console.log(raidInfo)
+    function displayRaidInfo(bossNameContainer) {
+        const raidInfo = Object.values(raidData).find(r => r.name === bossNameContainer.firstChild.textContent);
+
+        if (!bossNameContainer.nextSibling.querySelector('.misc')) {
+            const newMiscElement = document.createElement('div');
+            newMiscElement.classList.add('misc');
+            newMiscElement.setAttribute('data-v-624c6570', '');
+            newMiscElement.setAttribute('style', 'white-space: pre-line;');
+            bossNameContainer.nextSibling.appendChild(newMiscElement);
+        }
+
         const racesText = document.querySelector('.misc');
         racesText.style.whiteSpace = 'pre-line';
-        racesText.textContent = `${raidInfo.races.join(", ")}\nweakness: ${raidInfo.weakness.join(", ")}\nresistance: ${raidInfo.resist.join(", ")}`;
+        racesText.textContent = `${raidInfo.races.join(", ")}\nweak: ${raidInfo.weakness.join(", ")}\nresist: ${raidInfo.resist.join(", ")}`;
     }
 });
