@@ -7,6 +7,10 @@ const data = {
     formations: {}
 };
 
+chrome.storage.local.set({ 'token': this.localStorage.token }, function () {
+    console.log('Token value set');
+});
+
 chrome.storage.local.get("token", ({ token }) => {
     const fetchPromises = Object.keys(data).map(d =>
         fetch(`https://api.dragonsofthevoid.com/api/data/${d.replace("_", "-")}`, {
