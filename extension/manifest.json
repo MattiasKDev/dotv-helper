@@ -8,6 +8,7 @@
                 "https://play.dragonsofthevoid.com/*"
             ],
             "js": [
+                "dataManager.js",
                 "item-lookup.js"
             ]
         }

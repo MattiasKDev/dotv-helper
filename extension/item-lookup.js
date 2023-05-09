@@ -1,56 +1,32 @@
 console.log('Content script loaded');
 
-let auth;
-// Set the value of the 'token' key in chrome.storage.local
-chrome.storage.local.set({ 'token': this.localStorage.token }, function () {
-    console.log('Token value set');
-});
-
-// Retrieve the value of the 'token' key from chrome.storage.local
-chrome.storage.local.get('token', function (result) {
-    auth = result.token;
-});
+async function getDataFromLocalStorage() {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.get("data", ({ data: storedData }) => {
+            if (storedData) {
+                try {
+                    console.log("Data retrieved from local storage");
+                    resolve(JSON.parse(storedData));
+                } catch (e) {
+                    console.error("Error parsing data from local storage", e);
+                    reject(e);
+                }
+            } else {
+                console.log("Data not found in local storage. Retrying in 1 second...");
+                setTimeout(() => {
+                    getDataFromLocalStorage().then(resolve).catch(reject);
+                }, 1000);
+            }
+        });
+    });
+}
 
 async function GetItemLocations() {
     var itemLocations = {};
-    let data = {
-        "items": {},
-        "market": {},
-        "quest_zones": {},
-        "raids": {},
-        "recipes": {},
-        "formations": {}
-    };
 
-    const fetchPromises = [];
+    let data = await getDataFromLocalStorage();
+    console.log(data)
 
-    for (const d in data) {
-        const fetchPromise = fetch("https://api.dragonsofthevoid.com/api/data/" + d.replace("_", "-"), {
-            "headers": {
-                "accept": "application/json, text/plain, */*",
-                "accept-language": "en-US,en;q=0.9",
-                "authorization": auth,
-                "sec-ch-ua": "\"Chromium\";v=\"112\", \"Google Chrome\";v=\"112\", \"Not:A-Brand\";v=\"99\"",
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": "\"macOS\"",
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-site"
-            },
-            "referrer": "https://play.dragonsofthevoid.com/",
-            "referrerPolicy": "strict-origin-when-cross-origin",
-            "body": null,
-            "method": "GET",
-            "mode": "cors",
-            "credentials": "include"
-        }).then(r => r.text()).then(result => {
-            console.log(d + " data loaded");
-            data[d] = JSON.parse(result);
-        })
-        fetchPromises.push(fetchPromise);
-    }
-
-    await Promise.all(fetchPromises);
 
     function getItemLocations(itemID, dm) {
         for (const raid of Object.values(dm.raids)) {
