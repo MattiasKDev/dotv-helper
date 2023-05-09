@@ -4,25 +4,50 @@
 <head>
     <title>DotV Helper</title>
     <script src="popup.js"></script>
+    <style>
+        body {
+            min-width: 200px;
+            max-width: 100%;
+            background-color: #1c1c1c;
+            color: #fff;
+            font-family: Palatino, Helvetica;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        fieldset {
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            background-color: #252525;
+            padding: 20px;
+        }
+
+        legend {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+            font-size: medium;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 
-<body style="min-width: 200px; max-width: 100%;">
-    <h1 style="text-align: center;">DotV Helper</h1>
+<body>
+    <h1>DotV Helper</h1>
     <form>
-        <fieldset style="border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);">
-            <legend style="font-size: 18px; font-weight: bold;">Scripts:</legend>
-            <label>
-                <input type="checkbox" id="item-lookup">
-                item lookup
-            </label><br>
-            <label>
-                <input type="checkbox" id="raid-info">
-                raid info
-            </label><br>
-            <label>
-                <input type="checkbox" id="auto-heal">
-                auto heal
-            </label><br>
+        <fieldset>
+            <legend>Scripts</legend>
+            <div id="checkbox-container"></div>
         </fieldset>
     </form>
 </body>

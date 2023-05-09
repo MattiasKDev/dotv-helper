@@ -1,5 +1,5 @@
-chrome.storage.sync.get(['raidInfoEnabled'], ({ raidInfoEnabled }) => {
-    if (!raidInfoEnabled) return;
+chrome.storage.sync.get(['raid-infoEnabled'], ({ 'raid-infoEnabled': enabled }) => {
+    if (!enabled) return;
 
     console.log("raid-info.js loaded")
 

@@ -1,5 +1,5 @@
-chrome.storage.sync.get(['itemLookupEnabled'], ({ itemLookupEnabled }) => {
-    if (!itemLookupEnabled) return;
+chrome.storage.sync.get(['item-lookupEnabled'], ({ 'item-lookupEnabled': enabled }) => {
+    if (!enabled) return;
     console.log('Content script loaded');
 
     async function getDataFromLocalStorage() {

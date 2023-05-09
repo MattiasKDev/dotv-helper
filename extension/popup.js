@@ -1,23 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const itemLookupCheckbox = document.getElementById('item-lookup');
-    const raidInfoCheckbox = document.getElementById('raid-info');
-    const autoHealCheckbox = document.getElementById('auto-heal');
+    const checkboxIds = ['item-lookup', 'raid-info', 'auto-heal'];
 
-    itemLookupCheckbox.addEventListener('change', (event) => {
-        chrome.storage.sync.set({ itemLookupEnabled: event.target.checked });
+    checkboxIds.forEach((id) => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = id;
+
+        const label = document.createElement('label');
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(id.replace('-', ' ')));
+
+        const container = document.getElementById('checkbox-container');
+        container.appendChild(label);
     });
 
-    raidInfoCheckbox.addEventListener('change', (event) => {
-        chrome.storage.sync.set({ raidInfoEnabled: event.target.checked });
-    });
+    checkboxIds.forEach((id) => {
+        const checkbox = document.getElementById(id);
 
-    autoHealCheckbox.addEventListener('change', (event) => {
-        chrome.storage.sync.set({ autoHealEnabled: event.target.checked });
-    });
+        checkbox.addEventListener('change', (event) => {
+            const key = `${id}Enabled`;
+            chrome.storage.sync.set({ [key]: event.target.checked });
+        });
 
-    chrome.storage.sync.get(['itemLookupEnabled', 'raidInfoEnabled', 'autoHealEnabled'], ({ itemLookupEnabled, raidInfoEnabled, autoHealEnabled }) => {
-        itemLookupCheckbox.checked = itemLookupEnabled;
-        raidInfoCheckbox.checked = raidInfoEnabled;
-        autoHealCheckbox.checked = autoHealEnabled;
+        chrome.storage.sync.get(`${id}Enabled`, ({ [`${id}Enabled`]: enabled }) => {
+            checkbox.checked = enabled;
+        });
     });
 });
