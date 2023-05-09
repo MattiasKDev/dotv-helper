@@ -10,7 +10,8 @@
             "js": [
                 "dataManager.js",
                 "item-lookup.js",
-                "raid-info.js"
+                "raid-info.js",
+                "auto-heal.js"
             ]
         }
     ],
