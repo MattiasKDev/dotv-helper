@@ -203,13 +203,15 @@ chrome.storage.sync.get(['item-lookupEnabled'], ({ 'item-lookupEnabled': enabled
                         continue;
                     }
 
-                    itemN = node.querySelector('.item-popover-head-details span').textContent;
+                    itemN = node.querySelector('.item-popover-head-details').firstChild;
+                    if (itemN.textContent.split(":")[0] == 'Cast by') { itemN = itemN.nextSibling; }
+                    console.log(itemN.textContent.split(":")[0]);
                     img.src = node.querySelector('.item-popover-image-container img')?.getAttribute('src');
-                    itemName.textContent = itemN
+                    itemName.textContent = itemN.textContent.split(":")[0];
 
 
                     itemLocations.innerHTML = '';
-                    item = item_locations_json[itemN.toLowerCase()];
+                    item = item_locations_json[itemName.textContent.toLowerCase()];
                     if (item) {
                         if (!item.crafting && !item.market && (item.raids.length + item.quests.length) == 0) {
                             var dt = document.createElement("dt");
