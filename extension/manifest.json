@@ -9,7 +9,8 @@
             ],
             "js": [
                 "dataManager.js",
-                "item-lookup.js"
+                "item-lookup.js",
+                "raid-info.js"
             ]
         }
     ],
@@ -18,5 +19,9 @@
     ],
     "permissions": [
         "storage"
-    ]
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "settings"
+    }
 }
