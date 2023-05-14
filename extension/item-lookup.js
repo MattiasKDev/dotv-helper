@@ -203,7 +203,7 @@ chrome.storage.sync.get(['item-lookupEnabled'], ({ 'item-lookupEnabled': enabled
                         continue;
                     }
 
-                    itemN = node.querySelector('.item-popover-head-details').firstChild;
+                    itemN = node.querySelector('.item-popover-head-details')?.firstChild;
                     if (itemN.textContent.split(":")[0] == 'Cast by') { itemN = itemN.nextSibling; }
                     console.log(itemN.textContent.split(":")[0]);
                     img.src = node.querySelector('.item-popover-image-container img')?.getAttribute('src');
