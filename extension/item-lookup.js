@@ -71,6 +71,7 @@ chrome.storage.sync.get(['item-lookupEnabled'], ({ 'item-lookupEnabled': enabled
             }
 
             for (const questZone of Object.values(dm.quest_zones)) {
+                break;
                 for (const segments of questZone.segments) {
                     for (const node of segments.nodes) {
                         const diffs = [];
